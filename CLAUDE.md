@@ -22,3 +22,16 @@ GitHub のリリースタグから install している。
   両配色を持っているため、CSS を差し替える必要はない（`src/theme/ThemeProvider.tsx`）
 - **`vite.config.ts` の `build.cssTarget` を下げない。** 下げると `light-dark()` が変換され、
   配色の切り替えが OS 設定にしか反応しなくなる
+
+## git 依存ならではの落とし穴
+
+デザインシステムは `dist` を配布物に含めず、install のたびに `prepare` でビルドされる。
+そのため install 環境の影響を受ける。
+
+- **`pnpm.onlyBuiltDependencies` に `zukki-design-system` が必要。**
+  pnpm 10 は git 依存の `prepare` を許可制にしている。外すと install が成立しない
+- **pnpm の store を `node_modules` の中に置かない。**
+  `prepare` は store 内の一時ディレクトリで走る。そこが `node_modules` 配下だと、
+  ライブラリ側の vite が package.json を上へ辿る途中で `node_modules` に当たり、
+  `Name in package.json is required` で落ちる。
+  `pnpm/action-setup` の既定の store がまさにこれなので、CI では store-dir を明示している

@@ -22,6 +22,13 @@ jobs:
       # pnpm のバージョンは package.json の packageManager から解決される
       - uses: pnpm/action-setup@v6.1.0
 
+      # pnpm/action-setup の既定の store は $PNPM_HOME（= node_modules/.bin）配下に置かれる。
+      # git 依存の prepare はこの store 内の一時ディレクトリで走るため、ライブラリ側の
+      # vite が package.json を上へ辿る途中で node_modules に当たり、name を解決できずに
+      # 「Name in package.json is required」で落ちる。node_modules の外へ移して回避する。
+      # setup-node が `pnpm store path` を見てキャッシュ先を決めるので、その前に設定する
+      - run: pnpm config set store-dir "$HOME/.pnpm-store" --global
+
       - uses: actions/setup-node@v7
         with:
           # setup-node は .mise.toml を読めないため直書き。.mise.toml と揃えること
