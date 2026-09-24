@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # リリース更新後など、コードを変えずに再デプロイしたいときに手で回せるようにする
+  workflow_dispatch:
+
+# デプロイ中に次の実行が始まると公開物が壊れるため、キャンセルせずに直列化する
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      # pnpm のバージョンは package.json の packageManager から解決される
+      - uses: pnpm/action-setup@v6.1.0
+
+      - uses: actions/setup-node@v7
+        with:
+          # setup-node は .mise.toml を読めないため直書き。.mise.toml と揃えること
+          node-version: 24.14.1
+          cache: pnpm
+
+      # デザインシステムは git 依存なので、install の中で本体のビルドまで走る
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm typecheck
+
+      # ライブラリ側に props が増えていたらここで落ちる
+      - run: pnpm check:props
+
+      - run: pnpm build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

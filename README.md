@@ -28,6 +28,18 @@ pnpm dev
 | `pnpm ds:update` | 最新リリースへ更新する |
 | `pnpm verify` | 上記をまとめて実行する |
 
+## GitHub Pages で公開する
+
+`main` への push で `.github/workflows/deploy-pages.yml` が走り、型チェック → props の網羅チェック →
+ビルドを通ってから公開される。手で再デプロイしたいときは Actions から `workflow_dispatch` で回す。
+
+公開先: <https://zukki30.github.io/zukki-design-system-react-test/>
+
+リポジトリ設定側は **Settings → Pages → Source を「GitHub Actions」** にしておく（1 回だけ）。
+
+ビルド出力は `base: './'` で相対パスにしてあるため、`/<リポジトリ名>/` 配下でも `pnpm preview`
+でもそのまま動く。ルーターを使う場合はここを絶対パスへ変える必要がある。
+
 ## デザインシステムの install
 
 npm には publish されていないため、GitHub から install する。**パッケージ名はリポジトリ名と違い

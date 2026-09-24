@@ -1,0 +1,4 @@
+[tools]
+# ここを上げるときは .github/workflows/deploy-pages.yml の node-version も揃えること
+node = "24.14.1"
+pnpm = "10.33.0"
