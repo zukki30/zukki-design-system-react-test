@@ -1,5 +1,9 @@
 # zukki-design-system-react-test
 
+**公開サイト: <https://zukki30.github.io/zukki-design-system-react-test/>**
+
+[![Deploy to GitHub Pages](https://github.com/zukki30/zukki-design-system-react-test/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/zukki30/zukki-design-system-react-test/actions/workflows/deploy-pages.yml)
+
 [zukki-design-system-react](https://github.com/zukki30/zukki-design-system-react) を install して、
 実際に使えるかを確認するリポジトリ。
 
@@ -30,15 +34,22 @@ pnpm dev
 
 ## GitHub Pages で公開する
 
+公開先: <https://zukki30.github.io/zukki-design-system-react-test/>
+
 `main` への push で `.github/workflows/deploy-pages.yml` が走り、型チェック → props の網羅チェック →
 ビルドを通ってから公開される。手で再デプロイしたいときは Actions から `workflow_dispatch` で回す。
 
-公開先: <https://zukki30.github.io/zukki-design-system-react-test/>
-
-リポジトリ設定側は **Settings → Pages → Source を「GitHub Actions」** にしておく（1 回だけ）。
+リポジトリ設定（Settings → Pages → Source = GitHub Actions）は設定済み。
 
 ビルド出力は `base: './'` で相対パスにしてあるため、`/<リポジトリ名>/` 配下でも `pnpm preview`
 でもそのまま動く。ルーターを使う場合はここを絶対パスへ変える必要がある。
+
+CI 側には注意点が 2 つある。どちらもデザインシステムが `dist` を配布物に含めず、
+install のたびに `prepare` でビルドされることに由来する（詳細は `CLAUDE.md`）。
+
+- `package.json` の `pnpm.onlyBuiltDependencies` に `zukki-design-system` が必要
+- pnpm の store を `node_modules` の外に置く必要がある
+  （`pnpm/action-setup` の既定 store のままだと install が失敗する）
 
 ## デザインシステムの install
 
