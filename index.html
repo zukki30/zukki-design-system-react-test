@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>zukki-design-system playground</title>
+
+    <!-- デザインシステムが前提にしている Web フォント -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&family=BIZ+UDMincho:wght@400;700&family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // React のマウント前に配色を当てて、初回描画のちらつきを防ぐ。
+      // ThemeProvider と同じキー・同じ当て方（インラインスタイル）にそろえている
+      (() => {
+        const stored = localStorage.getItem('zds-theme');
+        document.documentElement.style.colorScheme =
+          stored === 'light' || stored === 'dark' ? stored : 'light dark';
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
