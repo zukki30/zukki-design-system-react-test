@@ -57,18 +57,23 @@ npm には publish されていないため、GitHub から install する。**�
 `zukki-design-system`** なので、import はこの名前で書く。
 
 ```bash
-pnpm add github:zukki30/zukki-design-system-react#v3.0.0
+pnpm add github:zukki30/zukki-design-system-react#<タグ>
 ```
+
+実際に入っているバージョンは `package.json` の `dependencies` を見る。
 
 ### 常に最新を使う
 
-タグを手で書き換えると更新漏れが起きるため、Releases API から最新タグを取って突き合わせる
-スクリプトを用意している。
+タグを手で書き換えると更新漏れが起きるため、[Releases](https://github.com/zukki30/zukki-design-system-react/releases)
+から最新タグを取って突き合わせるスクリプトを用意している。
 
 ```bash
 pnpm ds:check   # 最新でなければ exit 1
 pnpm ds:update  # 最新タグを install し直す
 ```
+
+更新したら `pnpm check:props` を流す。ライブラリに props が増えていればここで落ちるので、
+`src/showcase/` に使用例を足してから公開する（`pnpm verify` がこの順で全部実行する）。
 
 ## ライト / ダークの切り替え
 

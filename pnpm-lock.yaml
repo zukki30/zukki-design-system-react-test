@@ -15,8 +15,8 @@ importers:
         specifier: ^19.3.0
         version: 19.3.0(react@19.3.0)
       zukki-design-system:
-        specifier: github:zukki30/zukki-design-system-react#v3.0.0
-        version: https://codeload.github.com/zukki30/zukki-design-system-react/tar.gz/7deb3a4d7e12be2046b83e1364ad1690d2bca749(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: github:zukki30/zukki-design-system-react#v3.0.1
+        version: https://codeload.github.com/zukki30/zukki-design-system-react/tar.gz/bf444208b04f608997298a90b0e3434be0fd720a(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
     devDependencies:
       '@types/node':
         specifier: ^26.6.2
@@ -528,9 +528,9 @@ packages:
       yaml:
         optional: true
 
-  zukki-design-system@https://codeload.github.com/zukki30/zukki-design-system-react/tar.gz/7deb3a4d7e12be2046b83e1364ad1690d2bca749:
-    resolution: {tarball: https://codeload.github.com/zukki30/zukki-design-system-react/tar.gz/7deb3a4d7e12be2046b83e1364ad1690d2bca749}
-    version: 3.0.0
+  zukki-design-system@https://codeload.github.com/zukki30/zukki-design-system-react/tar.gz/bf444208b04f608997298a90b0e3434be0fd720a:
+    resolution: {tarball: https://codeload.github.com/zukki30/zukki-design-system-react/tar.gz/bf444208b04f608997298a90b0e3434be0fd720a}
+    version: 3.0.1
     peerDependencies:
       react: ^19.0.0
       react-dom: ^19.0.0
@@ -844,7 +844,7 @@ snapshots:
       fsevents: 2.3.3
       tsx: 4.23.15
 
-  zukki-design-system@https://codeload.github.com/zukki30/zukki-design-system-react/tar.gz/7deb3a4d7e12be2046b83e1364ad1690d2bca749(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  zukki-design-system@https://codeload.github.com/zukki30/zukki-design-system-react/tar.gz/bf444208b04f608997298a90b0e3434be0fd720a(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       clsx: 2.1.1
       react: 19.3.0
